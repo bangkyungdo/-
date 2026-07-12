@@ -1,55 +1,59 @@
-# 애동제자의 사주풀이 MVP v3
+# 애동제자의 사주풀이 MVP v5
 
-## 이번 버전
-- Supabase와 관리자 DB 기능을 완전히 제거했습니다.
-- 고객 정보는 사이트 데이터베이스에 저장하지 않습니다.
-- 만세력 계산 → OpenAI Responses API 해석 → 결과 표시 → 카카오 상담 연결만 남겼습니다.
-- 브랜드명을 `애동제자의 사주풀이`로 변경했습니다.
-- 전체 색상을 짙은 먹갈색·월넛·황동 계열로 무겁게 조정했습니다.
-- 입력 예시를 `홍길동 / 1988년 11월 17일 / 14시 20분`으로 변경했습니다.
+GitHub와 Vercel에 바로 올릴 수 있도록 정리한 무DB 버전입니다.
 
-## 실행
+## 핵심 기능
+- 이름 또는 닉네임, 성별, 양력·음력, 생년월일, 출생시간 입력
+- 출생시간 미상 처리
+- 만세력 계산
+- OpenAI Responses API 기반 사주풀이
+- API 키가 없을 때 데모 결과 출력
+- 1만 원 심층풀이 카카오 오픈채팅 연결
+- Supabase 및 별도 DB 없음
+
+## GitHub 업로드 시 가장 중요한 점
+압축을 푼 뒤 **이 폴더 안의 내용 전체**를 GitHub 저장소 최상단에 업로드하세요.
+
+GitHub 저장소 첫 화면에 아래 항목이 바로 보여야 정상입니다.
+
+```text
+app/
+lib/
+package.json
+package-lock.json
+tsconfig.json
+vercel.json
+README.md
+```
+
+GitHub 주소가 아래처럼 보이면 정상입니다.
+
+```text
+저장소/app/api/analyze/route.ts
+```
+
+아래처럼 프로젝트 폴더가 한 겹 더 보이면 잘못 업로드된 것입니다.
+
+```text
+저장소/aedong-saju-github-v5/app/api/analyze/route.ts
+```
+
+## 로컬 실행
+
 ```bash
-npm install
+npm ci
 cp .env.example .env.local
 npm run dev
 ```
-브라우저: http://localhost:3000
 
-## 환경변수
-```bash
-OPENAI_API_KEY=...
+브라우저에서 `http://localhost:3000`
+
+## Vercel 환경변수
+
+```text
+OPENAI_API_KEY=OpenAI에서 발급한 비밀키
 OPENAI_MODEL=gpt-5-mini
-NEXT_PUBLIC_KAKAO_OPENCHAT_URL=https://open.kakao.com/o/...
+NEXT_PUBLIC_KAKAO_OPENCHAT_URL=https://open.kakao.com/o/고유코드
 ```
 
-OpenAI API 키가 없으면 데모 풀이로 작동합니다. 실제 배포 시 Vercel 환경변수에 키를 입력하세요.
-
-## 현재 데이터 흐름
-1. 고객이 이름·생년월일·태어난 시·질문 입력
-2. 서버에서 만세력 계산
-3. OpenAI API로 정해진 글자 수의 결과 생성
-4. 결과를 브라우저에 즉시 표시
-5. 상담 이어가기 카드를 복사해 카카오 오픈채팅으로 이동
-
-DB가 없으므로 페이지를 닫으면 고객 입력과 결과는 사이트에서 다시 조회할 수 없습니다. 카카오 상담 인계는 복사된 상담 카드로 이어집니다.
-
-## 결과 길이
-- 핵심 문장 52자
-- 질문 직접 답변 190자
-- 타고난 중심 155자
-- 지금 흐름 175자
-- 행동 3개 각 46자
-- 심층 예고 100자
-
-## 정식 공개 전 확인
-- 30~50개 명식을 외부 만세력과 교차검증
-- 입춘·절입 경계, 윤달, 23시 전후 출생 검증
-- 개인정보처리방침·이용약관 페이지 추가
-- 카카오 오픈채팅 주소 입력
-- OpenAI 월 사용 한도 설정
-
-
-## 판매 가격
-- 유료 상품은 `1:1 심층 사주풀이 10,000원` 한 가지로 고정했습니다.
-- 현재 버전은 가격 표시와 카카오 상담 연결까지 포함합니다. 실제 카드/간편결제 자동 승인은 별도 결제대행사 연동이 필요합니다.
+Vercel에서는 Name과 Value 입력칸이 나뉘어 있으므로 `OPENAI_API_KEY=` 문구까지 넣지 말고 실제 값만 입력합니다.
