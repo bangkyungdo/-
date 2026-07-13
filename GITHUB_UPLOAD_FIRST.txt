@@ -1,5 +1,0 @@
-1. 이 ZIP을 먼저 압축 해제합니다.
-2. 압축을 푼 폴더를 엽니다.
-3. app, lib, package.json 등 안쪽의 모든 파일을 선택합니다.
-4. GitHub 저장소의 Add file > Upload files에 드래그합니다.
-5. GitHub 저장소 첫 화면에 package.json이 바로 보이면 성공입니다.
